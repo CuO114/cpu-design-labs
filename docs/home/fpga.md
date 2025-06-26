@@ -28,7 +28,7 @@
 
 这是一段带底色的文字
 
-&emsp;&emsp;在 <span style="background-color: #df9bff;">**T2102、T2210**</span> 上课的同学们，使用的是 <span style="background-color: #df9bff;">**EGO1开发板**</span>。
+&emsp;&emsp;在 <span style="background-color: #df9bff;">**T2507、T2210**</span> 上课的同学们，使用的是 <span style="background-color: #df9bff;">**EGO1开发板**</span>。
 
 &emsp;&emsp;在 <span style="background-color: #ff9bb2;">**T2506、T2612**</span> 上课的同学们，使用的是 <span style="background-color: #ff9bb2;">**Minisys开发板**</span>。
 

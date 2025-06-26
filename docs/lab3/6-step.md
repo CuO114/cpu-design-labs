@@ -1,4 +1,4 @@
-&emsp;&emsp;（1）从首页的课程材料下载链接，下载Vivado模板工程（`proj_miniRV.zip`或`proj_miniLA.zip`，**注意不同开发板的模板工程不同，在T2102、T2210上课的同学下载EGO1开发板的模板工程，否则下载Minisys开发板的模板工程**）；
+&emsp;&emsp;（1）从首页的课程材料下载链接，下载Vivado模板工程（`proj_miniRV.zip`或`proj_miniLA.zip`，**注意不同开发板的模板工程不同，在T2507、T2210上课的同学下载EGO1开发板的模板工程，否则下载Minisys开发板的模板工程**）；
 
 &emsp;&emsp;（2）把单周期CPU的代码复制到流水线CPU的模板工程，然后划分单周期CPU的数据通路，并在模板工程上实现理想流水线CPU；
 
