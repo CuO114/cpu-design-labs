@@ -9,7 +9,7 @@
 &emsp;:star: **禁止随意拔出** 开发板上的 **跳线帽**！
 
 <center><img src = "../assets/b-1.png" width = 100%></center>
-<center>图1 装袋后，^^把开口折起来^^</center>
+<center>图1 装袋后，^^把袋口折起来^^</center>
 
 &emsp;:star: **禁止丢弃防静电袋！** 使用完毕时，**将开发板正确装入防静电袋**（如有），如图1所示。
 
