@@ -71,7 +71,7 @@ nav:
     - Verilog代码规范: home/codingstyle.md
     - ★常见问题汇总: home/problems.md
     - 作业提交说明:
-      - ★课程提交要求: home/submit.md
+      # - ★课程提交要求: home/submit.md
       - 作业系统指南: home/operation.md
   # - 实验1：汇编语言程序设计:
   #   - 实验概述: lab1/0-overview.md
