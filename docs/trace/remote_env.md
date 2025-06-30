@@ -19,10 +19,13 @@
 
 &emsp;&emsp;需要配合远程实验平台使用的软件：
 
-- Visual Studio Code
+<!-- - Visual Studio Code -->
 - MobaXterm
 
-### 2.2 使用VS Code
+!!! warning "不要用VSCode连接远程平台！"
+    &emsp;&emsp;由于服务器资源有限，请尽量不使用VSCode连接远程平台（回想一下计算机系统实验的远程平台使用体验）。
+
+<!-- ### 2.2 使用VS Code
 
 #### 2.2.1 安装VS Code
 
@@ -96,7 +99,7 @@
 
 <!-- &emsp;&emsp;接下来，输入`git checkout peri`命令，切换到peri分支： -->
 
-&emsp;&emsp;你可以点击左侧边栏最上面的按钮，并打开文件夹：
+<!-- &emsp;&emsp;你可以点击左侧边栏最上面的按钮，并打开文件夹：
 
 ![连接5](assets/connect5.png)
 
@@ -116,11 +119,11 @@
 
 &emsp;&emsp;此时，提示top模块有错误，这时你就可以在mycpu目录下添加你自己的CPU代码了，详见<a href="../trace/#2" target="_blank">测试框架</a>说明。
 
-![连接9](assets/connect9.png)
+![连接9](assets/connect9.png) --> 
 
-### 2.4 使用MobaXterm
+### 2.2 使用MobaXterm
 
-#### 2.4.1 SSH登录 
+#### 2.2.1 SSH登录 
 
 &emsp;&emsp;MobaXterm 是一款远程控制工具，支持创建SSH、Telnet、Rsh、Xdmc、RDP、VNC、FTP、 SFTP、串口(Serial COM)、本地Shell、Mosh、Aws、WSL(微软子系统)等超多连接功能。MobaXterm 提供了人性化的操作界面，支持与主流的操作系统连接进行控制和管理操作，功能十分强大。
 
@@ -144,7 +147,7 @@
 
 ![mobaxterm5](assets/mobaxterm-5.png)
 
-#### 2.4.2 FTP文件传输
+#### 2.2.2 FTP文件传输
 
 &emsp;&emsp;SSH远程登录完毕，双击左下角的`Sftp`，就出现了远程服务器的文件目录。
 
@@ -184,10 +187,10 @@
 &emsp;&emsp;这会打开一个文件编辑界面。按下`i`按键，进入编辑模式，并粘贴到上面节点终端中编辑界面的一个新行里。按下`Esc`，按下`:wq`可保存并退出。如果不放心，可以`cat ~/.ssh/authorized_keys`并检查输出和你刚才贴进去的是不是一样的。
 配置完成后，下次你从Windows登陆时，应该就无需密码认证了。
 
-### 3.2 VS Code：进阶使用
+<!-- ### 3.2 VS Code：进阶使用
 
 &emsp;&emsp;有没有怀念VS Code、CodeBlock等IDE中便捷的一键运行功能？没关系，完备的插件市场配合自动化脚本可以完成你的一切功能需求！
-*下略。感兴趣的话可以了解一下Intelli Sense、MakeFile以及VSCode中的Task。*
+*下略。感兴趣的话可以了解一下Intelli Sense、MakeFile以及VSCode中的Task。* -->
 
 ## 4. Q&A
 
