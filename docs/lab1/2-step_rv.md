@@ -80,10 +80,10 @@
 <p style="line-height:100%">&emsp;&emsp; &#128312; Timer：计时器及其I/O接口电路  </p>
 </div>
 
-&emsp;&emsp;本实验使用的RISC-V SoC支持如表3-1所示的24条RISC-V指令。
+&emsp;&emsp;本实验使用的RISC-V SoC支持如表3-1所示的RISC-V指令。
 
 <center>表3-1 RISC-V SoC支持的部分指令</center>
-<center><img src = "../assets/t3-1.png"></center>
+<center><img src = "../../lab2/assets/t2-2.png"></center>
 
 ### 2.2 加载程序
 

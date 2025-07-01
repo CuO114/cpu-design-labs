@@ -117,10 +117,10 @@
 <p style="line-height:100%">&emsp;&emsp; &#128312; Timer：计时器及其I/O接口电路  </p>
 </div>
 
-&emsp;&emsp;本实验使用的LoongArch SoC支持如表3-a所示的25条LoongArch指令。
+&emsp;&emsp;本实验使用的LoongArch SoC支持如表3-a所示的LoongArch指令。
 
 <center>表3-a LoongArch SoC支持指令</center>
-<center><img src = "../assets/t3-a.png"></center>
+<center><img src = "../../lab2/assets/t2-2A.png"></center>
 
 ### 2.2 加载程序
 
