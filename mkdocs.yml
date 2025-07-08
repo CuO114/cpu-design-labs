@@ -110,11 +110,11 @@ nav:
   #     - 数据冒险的处理: lab3/4-handleDH.md
   #     - 控制冒险的处理: lab3/5-handleCH.md
   #   - 实验步骤: lab3/6-step.md
-  # - Trace测试说明:
-  #   - 测试机制说明: trace/trace.md
-  #   - 附录1：远程平台使用指南: trace/remote_env.md
-  #   - 附录2：虚拟机使用指南: trace/vm.md
-  #   - 附录3：实验环境部署指南: trace/env_diy.md
+  - Trace测试说明:
+    - 测试机制说明: trace/trace.md
+    - 附录1：远程平台使用指南: trace/remote_env.md
+    - 附录2：虚拟机使用指南: trace/vm.md
+    - 附录3：实验环境部署指南: trace/env_diy.md
   # - SoC的下板调试:
   #   - 方法1：Trace下板调试: verify/trace-debug.md
   #   - 方法2：FPGA在线调试: verify/online-debug.md
