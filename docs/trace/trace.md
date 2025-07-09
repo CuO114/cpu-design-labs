@@ -93,6 +93,8 @@ cd cdp-tests
 
 - **你需要保证在`mySoC`目录下的模块的层次关系中，SoC的顶层模块名叫做`miniRV_SoC`（或`miniLA_SoC`），且顶层模块的接口信号命名满足要求。**
 
+- Soc顶层模块的复位信号需命名为`fpga_rst`，且是高电平复位。**在T2507、T2210上课的同学，在运行Trace测试时，需暂时把低电平复位的`fpga_rstn`改成高电平复位的`fpga_rst`，并在后续下板运行之前改回来**。
+
 ``` Verilog linenums="1"
 `include "defines.vh"  // 运行Trace测试时，将此文件的RUN_TRACE取消注释; 下板时，注释RUN_TRACE.
 module miniRV_SoC (
