@@ -115,6 +115,6 @@ nav:
     - 附录1：远程平台使用指南: trace/remote_env.md
     - 附录2：虚拟机使用指南: trace/vm.md
     - 附录3：实验环境部署指南: trace/env_diy.md
-  # - SoC的下板调试:
-  #   - 方法1：Trace下板调试: verify/trace-debug.md
-  #   - 方法2：FPGA在线调试: verify/online-debug.md
+  - SoC的下板调试:
+    - 方法1：Trace下板调试: verify/trace-debug.md
+    - 方法2：FPGA在线调试: verify/online-debug.md
