@@ -2,11 +2,15 @@
 
 &emsp;&emsp;测试环境及相关工具下载地址：
 
-- 虚拟机镜像：<a href="https://otuyernchr.feishu.cn/file/boxcnrClUmwkmCZz5JbPsf7QnCb" target="_blank">vm.ova</a>
+- WSL2虚拟机镜像：<a href="https://pan.baidu.com/s/191-6NLBXG3O_hFvtVTKBSw?pwd=srui" target=_blank>comp2008_wsl2.tar</a>
+
+- Ubuntu虚拟机镜像：<a href="https://otuyernchr.feishu.cn/file/boxcnrClUmwkmCZz5JbPsf7QnCb" target="_blank">vm.ova</a>
 
 - MobaXTerm和VirtualBox：<a href="https://otuyernchr.feishu.cn/file/boxcnTjEReejhlrl0DlCte1Lrrf" target="_blank">虚拟机工具.zip</a>
 
-&emsp;&emsp;下载后，请参照本页后的“附录”导入虚拟机。
+&emsp;&emsp;如果下载的是WSL2虚拟机，则自行搜索如何安装WSL2环境，然后导入虚拟机、启动虚拟机即可使用。
+
+&emsp;&emsp;如果下载的是Ubuntu虚拟机，请参照本页后的“附录”导入虚拟机。
 
 
 ## 2. 导入虚拟机

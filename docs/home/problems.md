@@ -12,29 +12,25 @@
 &emsp;&emsp;可以使用<a href="http://ms.hitsz.edu.cn/#" target="_blank">Visio</a>、<a href="https://online.visual-paradigm.com/drive/#infoart:proj=0&dashboard" target="_blank">Visual Paradigm</a>、
 <a href="https://www.iodraw.com/" target="_blank">ioDraw</a>、<a href="https://app.diagrams.net/" target="_blank">draw.io</a>、<a href="https://www.processon.com/?utm_source=baidu&utm_medium=sem&utm_term=120470957204&utm_content=49530906908&uc_pagenum=1&uc_adposition=cl2&bd_vid=7544670811206821952" target="_blank">ProcessOn</a>等
 
-#### 1.2 Verilog如何正确添加头文件？
+#### 1.2 定义了宏，但报错显示未定义？
 
-&emsp;&emsp;在工程中新建文件时，文件类型选择`Verilog Header`。新建完成后，在`Sources`窗口找到`.vh文件`并在其上右键选择`Set Global Include`。
+&emsp;&emsp;在每一个需要使用宏定义的`.v`文件内添加``include "defines.vh"`语句。此外，引用宏定义时需在前面加上 **``` ` ```** 符号。例如，`#define MACRO1 111`，则引用时应该是````MACRO1```。
 
-&emsp;&emsp;也可以在每一个需要使用宏定义的`.v`文件内添加``include "defines.vh"`语句。
-
-&emsp;&emsp;另外，在Trace比对测试时，如果执行`make`命令编译时出现宏定义未定义的错误，则需要手动在相应的`.v`文件内添加include语句。
-
-#### 1.3 定义了宏，但报错显示未定义？
-
-&emsp;&emsp;如果定义了头文件，首先确保头文件被正确添加（见上一条1.2）。此外，引用宏定义时需在前面加上 **``` ` ```** 符号。例如，`#define MACRO1 111`，则引用时应该是````MACRO1```。
-
-#### 1.4 移位运算的移位位数超过`'d32`，或者是个负数，怎么办？
+#### 1.3 移位运算的移位位数超过`'d32`，或者是个负数，怎么办？
 
 &emsp;&emsp;把移位位数看成是无符号数，截取最低5位才是有效的移位位数。
 
-#### 1.5 load指令从DRAM取数据时，取到的是0
+#### 1.4 load指令从DRAM取数据时，取到的是0
 
 &emsp;&emsp;ALU计算得到的是字节地址，DRAM的地址是字地址，需排查接线是否有误。此外，也可能是前面的store指令往该存储单元写了0的数据。
 
-#### 1.6 出现跟时钟有关的Critical Warning
+#### 1.5 出现跟时钟有关的Critical Warning
 
 &emsp;&emsp;检查是否同时使用了时钟信号的上升沿和下降沿。
+
+#### 1.6 AXI Trace测试通过，但下板失败
+
+&emsp;&emsp;Trace框架只会测试SoC的主存访问，不会测试外设访问。如果Trace测试通过，但下板测试不通过，首先应检查DCache的Uncached访问、SoC的外设访问是否存在问题。调试时，可通过把C_TEST程序的.coe文件导入主存然后进行功能仿真或下板抓取波形进行分析。
 
 #### 1.7 如何提高CPU主频？
 
@@ -69,35 +65,41 @@
 
 #### 1.8 只做完单周期能不能及格？
 
-&emsp;&emsp;起码要实现单周期CPU及SoC，再实现理想流水线CPU，并且报告也要认真写，才能及格。
+&emsp;&emsp;如果是2人小组，起码要实现单周期CPU + AXI总线，能够跑通AXI Trace，然后流水线CPU能够跑通Basic Trace，报告认真完成，才能及格。
 
-#### 1.9 选做指令只做了一部分，可以加分吗？
+&emsp;&emsp;如果实在找不到人小组合作，则需要：
 
-&emsp;&emsp;选做指令要全部正确实现（对miniRV，不含例外和中断处理的3条指令）才能加分。
+&emsp;&emsp;（1）完成A组或B组指令的单周期CPU，跑通Basic Trace；
+
+&emsp;&emsp;（2）完成理想流水线CPU，通过<a href="../../lab2-A/2-idealpl/#3-cpu" target=_blank>功能仿真</a>，并在课上通过现场检查；
+
+&emsp;&emsp;（3）完成<a href="../../lab2-B/5-ioupg" target=_blank>实验2的I/O接口编程任务</a>，并在课上通过现场检查；
+
+&emsp;&emsp;完成以上内容，并且还要认真完成报告，才能及格。
 
 
 
 ## 2. Trace验证
 
-#### 2.1 `debug_wb_have_inst`表示“WB阶段有指令”，到底该怎么理解？
+#### 2.1 虚拟机启动不了，一直转圈
 
-&emsp;&emsp;当`debug_wb_have_inst`有效时，将马上开始对指令的Trace进行比对。也就是说，Trace比对的时候要保证当前指令的所有操作都要完成。`debug_wb_have_inst`信号用来告诉验证平台你的指令什么时候好了，什么时候可以进行Trace比对，这就是所谓是“WB阶段有指令” —— 指令写回时，它的所有操作都马上要完成了，所以可以开始比对验证了。
+&emsp;&emsp;等待超过3分钟，保存好个人文件，重启电脑。或更换座位。
 
-&emsp;&emsp;对于单周期CPU，每个时钟周期都有一条指令执行完成，所以`debug_wb_have_inst`恒为`1'b1`。
+#### 2.2 MobaXTerm连接时一直报错`Network error, connect refused`
 
-&emsp;&emsp;对于流水线CPU来说，因为存在数据冒险和结构冒险，为了保证指令执行结果正确，有时流水线不得不停下来等待前面的指令执行完成。显然，这种情形下，并非每个时钟周期都有指令执行完成，因此`debug_wb_have_inst`就不是恒为`1'b1`了。此外，对于流水线CPU而言，`debug_wb_have_inst`也可以理解为“有指令离开流水线”。一条指令，无论是在EX阶段离开了流水线，还是在MEM阶段离开，还是在WB阶段，都是相同的定义。对于顺序执行的CPU而言，指令提前离开流水线的情况下，最简单的方法是仍然将指令相关的信号通过流水线寄存器传递到WB级，或者是在中间将相应的信号拉出后做多选。
-
-#### 2.2 虚拟机导入后，打开报错
-
-&emsp;&emsp;可能是需要管理员权限打开VirtualBox或是需要进BIOS打开VT-x等等，可在网上搜索报错信息里的16进制错误码，并按照搜索到的解决方案尝试解决。
-
-#### 2.3 MobaXTerm连接时一直报错`Network error, connect refused`
+&emsp;&emsp;建议换用实验室的WSL2虚拟机环境。
 
 &emsp;&emsp;关闭防火墙和杀毒软件，重启电脑。
 
-#### 2.4 VSCode连接远程Trace平台，报错`Bad owner or permissions on .ssh/config`
+#### 2.3 VSCode连接远程Trace平台，报错`Bad owner or permissions on .ssh/config`
+
+&emsp;&emsp;建议换用实验室的WSL2虚拟机环境。
 
 &emsp;&emsp;解决方法可参考《<a href="https://cloud.tencent.com/developer/article/1643437" target="_blank">Win10下Bad owner or permissions on .ssh/config的解决办法-腾讯云</a>》。
+
+#### 2.4 编译报错提示“multiple target patterns”
+
+&emsp;&emsp;检查mySoC目录下是否有Zone.Identifier文件，将其全部删除后重试。
 
 #### 2.5 build的时候报错`Timescale missing on this module`
 
@@ -111,9 +113,11 @@
 
 &emsp;&emsp;仔细按照<a href="../../trace/trace/#2" target="_blank">Trace测试说明</a>逐一检查debug信号、模块名、存储器参数设置等是否符合要求。
 
+&emsp;&emsp;此外Time out可能是因为CPU本身陷入了长时间等待状态，比如发出了取指请求，但一直没有收到指令；或者一条指令执行完之后，一直没有取下一条指令；又或者数据访存出问题等等。此种情况，可结合Trace测试的仿真波形进行分析。
+
 #### 2.8 复位信号到底是低电平还是高电平？
 
-&emsp;&emsp;Trace验证时提供的复位信号和下板时板上的复位按钮是都高电平复位。
+&emsp;&emsp;Trace验证时提供的复位信号是高电平复位。EGO1开发板的复位按钮是低电平复位，Minisys开发板则是高电平复位。
 
 #### 2.9 Trace验证时，`REFERENCE`的PC和`MYCPU`的PC不一致
 
@@ -125,31 +129,37 @@
 
 #### 2.10 输入命令查看波形，结果没反应？
 
-&emsp;&emsp;不要使用root账户。
+&emsp;&emsp;不要使用root用户。
 
-#### 2.11 Trace验证中的`simple`是什么指令？
+#### 2.11 Trace测试用例的汇编代码在哪里可以找到？
 
-&emsp;&emsp;`simple`只给出数据段和代码段定义，且代码段内没有测试内容，不能算是测试指令。
+&emsp;&emsp;看Trace测试包下的`asm`目录，即 `cdp-tests` / `asm`，或者根据指令集点击查看：<a href="https://gitee.com/hitsz-cslab/cdp-tests/tree/miniRV/asm" target=_blank>miniRV</a>、<a href="https://gitee.com/hitsz-cslab/cdp-tests/tree/miniLA/asm" target=_blank>miniLA</a>。
 
-#### 2.12 Trace测试用例的汇编代码在哪里可以找到？
+#### 2.12 仿真Trace通过所有指令，但下板卡在某一条指令的测例
 
-&emsp;&emsp;看Trace测试包下的`asm`目录，即`cdp-tests/asm/`。
+&emsp;&emsp;检查CPU和主存（`IROM`、`DRAM`或`bram_axi`）是否使用不同的时钟。
 
-#### 2.13 仿真Trace通过所有指令，但下板卡在某一条指令的测例
+#### 2.13 怎么保证提交代码后Trace自动评测一定能过
 
-&emsp;&emsp;检查CPU和DRAM是否使用不同的时钟。
+&emsp;&emsp;只要你自己在虚拟机里能够通过Trace测试，就把mySoC目录压缩提交就行。就算评测真的有问题，也会有人工复核，必要时会通过课程群联系你。
 
 #### 2.14 VSCode连接Trace远程平台问题
 
+&emsp;&emsp;建议换用实验室的WSL2虚拟机环境。
+
 <center><img src = "../assets/p-2.14-1.png" width=550></center>
 
-&emsp;&emsp;推荐用MobaXTerm来连接Trace远程平台，而不是用VSCode连接 —— VSCode连接远程服务器会占用较多网络资源，尤其是本课程有很多同学同时使用远程平台！（回想一下春季学期计算机系统实验的远程平台使用体验）
+&emsp;&emsp;推荐用MobaXTerm来连接Trace远程平台，而不是用VSCode连接 —— VSCode连接远程服务器会占用较多网络资源，尤其是本课程有很多同学同时使用远程平台！
 
 #### 2.15 执行make提示“No rule to make”
 
 <center><img src = "../assets/p-2.15-1.png" width=650></center>
 
 &emsp;&emsp;执行make前，先确保已经通过`cd`命令进入了`cdp-tests`目录。如果目录没问题，则检查`cdp-tests`目录是否包含`Makefile`文件。如果包含，但仍然提示“No rule to make”，则备份好个人代码，删除现有`cdp-tests`目录并重新下载和编译。
+
+#### 2.16 我的Cache和乘法器已经通过测试，为什么Trace测试过不了
+
+&emsp;&emsp;如果ICache、DCache、乘法器模块都能跑通计算机组成原理实验的测试，但是在Trace测试时不通过，是正常现象，毕竟不同测试的严格程度不一样。与其怀疑测试框架有问题，不如根据波形细心完成调试。
 
 
 
@@ -189,11 +199,11 @@
 
 &emsp;&emsp;**Step4**：继续点击`Next`按钮，并点击`Finish`按钮，即可连接开发板。
 
-#### 3.2 导入综合好的IP核仿真时报错`Module <progrom> not found`
+<!-- #### 3.2 导入综合好的IP核仿真时报错`Module <progrom> not found`
 
-&emsp;&emsp;所提供的`.xci`格式的IP核只能用于生成比特流，不支持仿真。需要仿真时，可自己重新建立IP核，导入相应的`.coe文件`，然后再跑仿真。
+&emsp;&emsp;所提供的`.xci`格式的IP核只能用于生成比特流，不支持仿真。需要仿真时，可自己重新建立IP核，导入相应的`.coe文件`，然后再跑仿真。 -->
 
-#### 3.3 综合/实现/比特流跑了半天跑不出来，怎么办？
+#### 3.2 综合/实现/比特流跑了半天跑不出来，怎么办？
 
 &emsp;&emsp;首先代码越复杂，IROM里的程序越大，综合/实现/比特流是会越慢的，甚至可能需要几十分钟，请耐心等待。
 
@@ -203,15 +213,15 @@
 
 &emsp;&emsp;也有可能是代码有bug，导致Vivado出bug，从而跑不出来。这种情况下，需要检查代码中不规范不合理的地方，一一改过来。
 
-#### 3.4 综合/实现/比特流报错`Combinational Loop Alert`
+#### 3.3 综合/实现/比特流报错`Combinational Loop Alert`
 
 &emsp;&emsp;设计中存在组合逻辑环路，需要根据报错信息提示的信号/模块，找出这个环并解决之。
 
-#### 3.5 跑实现的时候跑了很久，底下显示有红色数字的负数
+#### 3.4 跑实现的时候跑了很久，底下显示有红色数字的负数
 
 &emsp;&emsp;检查CPU和DRAM是否使用不同的时钟。
 
-#### 3.6 仿真和下板不一致，怎么办？
+#### 3.5 仿真和下板不一致，怎么办？
 
 &emsp;&emsp;仿真和下板出现不一致的情况，可能是以下几个原因：
 
@@ -223,7 +233,7 @@
 
 &emsp;&emsp;仿真和下板不一致时，问题可能比较隐晦，<u>需要耐心排查代码</u>。查错时，也可以参考Vivado的Warning信息、log日志等；当然也可使用<a href="../../verify/online-debug/" target="_blank">FPGA在线调试方法</a>抓取运行时波形进行分析。
 
-#### 3.7 `Timing Report`中的`WNS`、`TNS`等几个时间都显示`NA`
+#### 3.6 `Timing Report`中的`WNS`、`TNS`等几个时间都显示`NA`
 
 &emsp;&emsp;IP核的分频器不要设置成Global buffer。如果是自己实现分频器，不能有复位信号。
 

@@ -1,6 +1,6 @@
 ## 1. 登陆
 
-&emsp;&emsp;学生端登陆网址：<a href="http://labgrader.hitsz.edu.cn:8000/" target="_blank">labgrader.hitsz.edu.cn:8000</a>。推荐使用Chrome浏览器，初始用户名/密码均为学号。
+&emsp;&emsp;学生端登陆网址：<a href="https://grader.hitsz.edu.cn/" target="_blank">grader.hitsz.edu.cn</a>。推荐使用Chrome浏览器，初始用户名/密码均为学号。
 
 &emsp;&emsp;初始登陆之后建议修改自己的密码，步骤见本页的5.修改密码。
 

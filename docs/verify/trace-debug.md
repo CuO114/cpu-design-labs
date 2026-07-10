@@ -5,68 +5,19 @@
 !!! note "关于下板运行Trace的说明 :loudspeaker:"
     &emsp;&emsp;本节所介绍的下板运行Trace并非必做内容，而是一种在FPGA板上运行的调试手段。
 
-## 1. DRAM访存地址修改
+    &emsp;&emsp;miniLA无start.dump测试程序。如果需要下板测试Trace框架中的测试用例，则只能单个进行下板测试。
 
-&emsp;&emsp;对于哈佛结构的CPU，汇编程序的代码段和数据段应当分别存放在IROM和DRAM。DRAM的基地址为`0x0000_0000`，而start.dump程序的数据段基地址为`0x0000_4000`。因此，为了使得CPU能够正确运行start.dump程序，我们需要将测试程序访问DRAM的地址减去`0x0000_4000`，即：
+## 1. 导入测试程序
 
-&emsp;&emsp;原DRAM实例化代码：
-
-``` Verilog linenums="1"
-dram U_dram (
-    .clk    (cpu_clk),
-    .a      (waddr[15:2]),
-    .spo    (rdata),
-    .we     (we),
-    .d      (wdata)
-);
-```
-
-&emsp;&emsp;修改后的DRAM实例化代码：
-
-``` Verilog linenums="1"
-wire [31:0] waddr_tmp = waddr - 32'h4000;
-
-dram U_dram (
-    .clk    (cpu_clk),
-    .a      (waddr_tmp[15:2]),
-    .spo    (rdata),
-    .we     (we),
-    .d      (wdata)
-);
-```
-
-
-<!-- ## 2. 存储器IP替换 -->
-## 2. 导入测试程序
-
-<!-- &emsp;&emsp;由于下板测试程序较大，导致导入.coe后重新综合工程耗时较长，因此课程指导书网站提供了已综合好的IROM和DRAM IP核，同学们可将其直接导入CPU工程中使用。
-
-&emsp;&emsp;下面以导入DRAM为例，介绍导入已综合IP核的方法 (IROM同理)。 -->
-
-<!-- &emsp;&emsp;首先，从指导书网站<a href="https://gitee.com/hitsz-cslab/cpu/blob/master/stupkt/download_test.zip" target="_blank">下载download_test.zip压缩包</a>文件并解压到无中文路径下。 -->
-
-&emsp;&emsp;首先，从首页的课程材料下载链接中，下载onboard_trace.zip压缩包并解压。
-
-<!-- &emsp;&emsp;然后，备份原工程，按照上一节所述修改RTL代码，并删除已实例化的IROM和DRAM IP核。 -->
-
-&emsp;&emsp;然后，参照<a href="../../lab2/2-parts/#321-rom" target="_blank">实验2 - 3.2.1 定义程序ROM</a>，将`inst_rom.coe`和`data_ram.coe`分别导入到IROM和DRAM的存储器IP核中。
-
-<!-- &emsp;&emsp;接着，按下图所示点击添加IP核。
-
-<center><img src = "../assets/1.png" width = 450></center>
-
-<center><img src = "../assets/2.png" width></center>
-
-<center><img src = "../assets/3.png" width = 600></center>
-<center>从解压的目录中添加已综合的DRAM IP核</center> -->
+&emsp;&emsp;按照<a href="../../lab2-A/7-step" target=_blank>流水线CPU实验步骤</a>，使用bin2coe.py脚本把 `cdp-tests` / `bin` 目录下的start.bin转换成.coe文件并导入`bram_axi`的IP核。
 
 &emsp;&emsp;接着，运行综合、实现、生成比特流，最终下板运行Trace测试。
 
 
 
-## 3. 测试结果说明
+## 2. 测试结果说明
 
-&emsp;&emsp;cdp-tests测试包提供了37条指令（24条必做和13条选做）的测试程序。每通过一个测试点，数码管显示的数值会加1，直至测试完毕。测试完毕时，数码管将以16进制形式显示测试总数和通过了的测试数量。
+&emsp;&emsp;cdp-tests测试包提供了37条指令（不含乘除法指令）的测试程序。每通过一个测试点，数码管显示的数值会加1，直至测试完毕。测试完毕时，数码管将以16进制形式显示测试总数和通过了的测试数量。
 
 !!! example "举例说明 :chestnut:"
     &emsp;&emsp;以miniRV为例，如果实现了21条必做指令并通过了测试，数码管将显示`0x25000015`。数码管高2位显示`0x25`，表示共有`37`个测试点，数码管低2位显示`0x15`，表示通过了`21`个测试点。
@@ -74,21 +25,6 @@ dram U_dram (
 &emsp;&emsp;需要注意的是，对于测试不通过的情形，如果数码管显示的值停在n，则表示第n+1条指令的测试失败。测试失败时，可查看start.dump的测试代码以定位出错指令，并进行相应的调试。
 
 &emsp;&emsp;在下板测试中，如果数码管显示卡在某一个功能点，没有继续计数，一种方法是采用虚拟机中的Trace测试框架来进一步定位错误点。
-
-!!! warning "注意 :loudspeaker:"
-    &emsp;&emsp;在虚拟机或远程平台运行Trace测试时，DRAM地址不需要减去0x4000；**只有在下板运行Trace时，DRAM地址才需要减去0x4000**。
-
-    ``` Verilog linenums="1"
-    wire [31:0] waddr_tmp = waddr;// - 16'h4000;
-     
-    data_mem dmem (
-        .clk    (cpu_clk),
-        .a      (waddr_tmp[15:2]),
-        .spo    (rdata),
-        .we     (we),
-        .d      (wdata)
-    );
-    ```
 
 - ***Step1***：进入`cdp-test`目录，输入`make`命令以重新编译；
 
