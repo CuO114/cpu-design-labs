@@ -65,9 +65,17 @@
 
 #### 1.8 只做完单周期能不能及格？
 
-&emsp;&emsp;如果是2人小组，起码要实现单周期CPU + AXI总线，能够跑通AXI Trace，然后流水线CPU能够跑通Basic Trace，报告认真完成，才能及格。
+- 如果是2人小组，则需要：
 
-&emsp;&emsp;如果实在找不到人小组合作，则需要：
+&emsp;&emsp;（1）单周期CPU实现所有指令，能够跑通Basic Trace；
+
+&emsp;&emsp;（2）完成理想流水线CPU，通过<a href="../../lab2-A/2-idealpl/#3-cpu" target=_blank>功能仿真</a>，并在课上通过现场检查；
+
+&emsp;&emsp;（3）为单周期CPU实现AXI总线，跑通<a href="https://gitee.com/hitsz-cslab/cdp-tests/blob/miniRV/asm/lw.dump" target=_blank>lw.dump</a>、<a href="https://gitee.com/hitsz-cslab/cdp-tests/blob/miniRV/asm/sw.dump" target=_blank>sw.dump</a>的功能仿真测试。
+
+&emsp;&emsp;完成以上内容，并且还要认真完成报告，才能及格。
+
+- 如果实在找不到人小组合作（比如重修的同学），则需要：
 
 &emsp;&emsp;（1）完成A组或B组指令的单周期CPU，跑通Basic Trace；
 
@@ -83,7 +91,7 @@
 
 #### 2.1 虚拟机启动不了，一直转圈
 
-&emsp;&emsp;等待超过3分钟，保存好个人文件，重启电脑。或更换座位。
+&emsp;&emsp;重启电脑后，3分钟内启动虚拟机。或更换座位。
 
 #### 2.2 MobaXTerm连接时一直报错`Network error, connect refused`
 
