@@ -1,3 +1,45 @@
 site/
 docs/lab2-A/
 docs/lab2-B/
+
+# Vivado project output. Keep project/source inputs such as .xpr, .xci,
+# Verilog/SystemVerilog, constraints, testbenches, COE files, and wave configs.
+**/.Xil/
+**/*.cache/
+**/*.gen/
+**/*.hw/
+**/*.ip_user_files/
+**/*.runs/
+**/*.sim/
+*.jou
+*.log
+*.str
+*.pb
+*.wdb
+*.bit
+*.bin
+*.ltx
+*.dcp
+
+# Generated products for checked-in Vivado IP. The .xci files are sufficient
+# to regenerate these directories and netlists from Vivado.
+**/src/rtl/ip/*/doc/
+**/src/rtl/ip/*/hdl/
+**/src/rtl/ip/*/misc/
+**/src/rtl/ip/*/sim/
+**/src/rtl/ip/*/simulation/
+**/src/rtl/ip/*/synth/
+**/src/rtl/ip/*/*.mif
+**/src/rtl/ip/*/*.veo
+**/src/rtl/ip/*/*.vho
+**/src/rtl/ip/*/*.xml
+**/src/rtl/ip/*/*_stub.v
+**/src/rtl/ip/*/*_stub.vhdl
+**/src/rtl/ip/*/*_sim_netlist.v
+**/src/rtl/ip/*/*_sim_netlist.vhdl
+
+# Editor and operating-system files.
+.DS_Store
+Thumbs.db
+*.swp
+*~
