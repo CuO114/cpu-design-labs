@@ -31,6 +31,9 @@
 
 &emsp;&emsp;首先在桌面上打开wsl2distromanager，并启动comp2008虚拟机。
 
+!!! info "如果是在T2612上课的同学"
+    &emsp;&emsp;在桌面上找到Debian虚拟机的快捷方式，双击即可启动虚拟机。
+
 &emsp;&emsp;在虚拟机终端输入并执行下列命令，以拉取测试框架代码：
 
 ``` bash linenums="1"
@@ -93,7 +96,7 @@ cd ~ && git clone https://gitee.com/hitsz-cslab/cdp-tests.git
  
 - 把Vivado工程目录的 `src` / `rtl` 下的所有源文件拷贝到 `cdp-tests` / `mySoC` 目录。**不要拷贝`ip`文件夹**，也 **不要拷贝IP核相关文件**。
 
-- 如果使用WSL2虚拟机，在Windows下把源文件拷贝到虚拟机之后，有时会出现许多带有`Zone.Identifier`后缀的文件。这些文件需要全部删除，否则测试无法运行。删除方法是在文件资源管理器的搜索框搜索`Zone.Identifier`，然后快捷键 ++ctrl+a++ 全选后删除。
+- 如果使用WSL2虚拟机，在Windows下拷贝源文件到虚拟机并刷新界面，有时会出现许多带有“`Zone.Identifier`”后缀的文件。这些文件需要全部删除，否则测试无法运行。删除方法是在文件资源管理器的搜索框搜索“`Zone.Identifier`”，然后快捷键 ++ctrl+a++ 全选后删除。
 
 - **保证`mySoC`目录下的架构是`miniRV_SoC`（或`miniLA_SoC`）包含`cpu_top`，然后`cpu_top`包含`cpu_core`，且这些模块的模块名、实例名，以及`cpu_core`的接口信号均不要改动**。课程提供的模板工程默认满足要求，不要改动。
 
@@ -114,7 +117,7 @@ cd ~ && git clone https://gitee.com/hitsz-cslab/cdp-tests.git
 !!! danger "**Trace测试框架只会测试主存访问，不会测试外设访问**"
     &emsp;&emsp;如果SoC通过了AXI Trace测试，但下板测试失败，则首先应排查Uncached访问和外设访问的实现是否存在问题。
 
-&emsp;&emsp;Trace测试框架使用`cpu_core.v`末尾的两组Trace信号来获取待测试CPU的部分结构状态。其中，第一组带有`debug_wb_`前缀的信号用于获取写回寄存器的信息，第二组带有`debug_mem_`前缀的则用于获取写访存的信息。单周期CPU的demo工程已提前连接好两组Trace信号：
+&emsp;&emsp;Trace测试框架使用`cpu_core.v`文件末尾的两组Trace信号来获取待测试CPU的部分结构状态。第一组带有“`debug_wb_`”前缀的信号用于获取写回寄存器的信息，第二组带有“`debug_mem_`”前缀的则用于获取写访存的信息。单周期CPU的demo工程已提前连接好两组Trace信号：
 
 ```verilog title="cpu_core.v" linenums="252"
 wire [31:0] debug_wb_pc    /* verilator public */ ;     // WB阶段的PC
@@ -232,7 +235,7 @@ make run TEST=sltu
 
 ![image-20210704013056368](assets/trace-3.png)
 
-&emsp;&emsp;打印出Test Point Pass之后，就代表这条指令测试通过了。
+&emsp;&emsp;打印出“Test Point Pass”之后，就代表这条指令测试通过了。
 
 &emsp;&emsp;如果发生了错误，就会打印如下所示的信息：
 
@@ -252,7 +255,7 @@ make run TEST=sltu
 
 <center><img src = "../assets/trace-6.png" width = 100%></center>
 
-&emsp;&emsp;修改HDL代码并重新编译、重新运行测试后，只需点击左上角工具栏的刷新按钮，即可查看最新的波形，如下图所示。
+&emsp;&emsp;修改HDL代码并重新编译、重新运行测试后，只需点击Surfer左上角工具栏的刷新按钮，即可查看最新的波形，如下图所示。
 
 <center><img src = "../assets/trace-7.png" width = 350></center>
 
