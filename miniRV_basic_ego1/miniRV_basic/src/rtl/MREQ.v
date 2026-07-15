@@ -28,11 +28,39 @@ module MREQ (
         case (ram_wop)
             `RAM_WE_B: begin                            // sb
                 // TODO: 根据字节偏移量offset，分别使用ram_wop、ram_wdata产生da_wen、da_wdata
-                
+                case (offset)
+                    2'h0 : begin
+                        da_wdata[7:0] = ram_wdata[7:0];
+                        da_wen = 4'h1;
+                    end
+                    2'h1 : begin
+                        da_wdata[15:8] = ram_wdata[7:0];
+                        da_wen = 4'h2;
+                    end
+                    2'h2 : begin
+                        da_wdata[23:16] = ram_wdata[7:0];
+                        da_wen = 4'h4;
+                    end
+                    2'h3 : begin
+                        da_wdata[31:24] = ram_wdata[7:0];
+                        da_wen = 4'h8;
+                    end 
+                    default: da_wdata = 32'h0;
+                endcase
             end
             `RAM_WE_H: begin                            // sh
                 // TODO: 根据16位半节偏移量offset[1]，分别使用ram_wop、ram_wdata产生da_wen、da_wdata
-                
+                case (offset)
+                    2'h0 : begin
+                        da_wdata[15:0] = ram_wdata[15:0];
+                        da_wen = 4'h3;
+                    end
+                    2'h2 : begin
+                        da_wdata[31:16] = ram_wdata[15:0];
+                        da_wen = 4'hc;
+                    end
+                    default: da_wen = 4'h0;
+                endcase
             end
             `RAM_WE_W:                                  // sw
                 if (offset == 2'h0) begin
@@ -47,8 +75,11 @@ module MREQ (
             case (ram_rop)
                 // TODO: 根据访存指令类型，判断偏移量offset是否满足对齐条件（字节对齐、半字对齐），
                 //       只有在对齐时才能访存
-                
-                default    : da_ren = (offset == 2'h0) ? 4'hF : 4'h0;                       // lw
+                `RAM_EXT_B  : da_ren = 4'hF;
+                `RAM_EXT_H  : da_ren = (offset == 2'h0 || offset == 2'h2) ? 4'hF : 4'h0;
+                `RAM_EXT_BU : da_ren = 4'hF;
+                `RAM_EXT_HU : da_ren = (offset == 2'h0 || offset == 2'h2) ? 4'hF : 4'h0;
+                default     : da_ren = (offset == 2'h0) ? 4'hF : 4'h0;                       // lw
             endcase
         end else
             da_ren = 4'h0;
