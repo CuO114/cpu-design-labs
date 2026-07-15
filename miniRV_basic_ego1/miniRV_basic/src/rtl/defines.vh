@@ -16,6 +16,7 @@
 `define ALU_NE      5'h09
     
 `define NPC_PC4     2'b00
+`define NPC_JALR    2'b01
 `define NPC_BRA     2'b10
 `define NPC_JMP     2'b11
     
@@ -23,6 +24,7 @@
 `define EXT_B       3'b010
 `define EXT_U       3'b011
 `define EXT_J       3'b100
+`define EXT_S       3'b001
 
 `define WB_ALU      2'b00
 `define WB_RAM      2'b01
