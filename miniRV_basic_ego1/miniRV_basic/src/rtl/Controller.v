@@ -28,6 +28,15 @@ module Controller (
     wire LUI   = (opcode == 7'b0110111);
     wire JAL   = (opcode == 7'b1101111);
     wire ADD   = (opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0000000);
+    wire SUB   = (opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0100000);
+    wire AUIPC = (opcode == 7'b0010111);
+    wire SLL   = (opcode == 7'b0110011) && (funct3 == 3'b001) && (funct7 == 7'b0000000);
+    wire SRL   = (opcode == 7'b0110011) && (funct3 == 3'b101) && (funct7 == 7'b0000000);
+    wire SRLI  = (opcode == 7'b0010011) && (funct3 == 3'b101) && (funct7 == 7'b0000000);
+    wire SRA   = (opcode == 7'b0110011) && (funct3 == 3'b101) && (funct7 == 7'b0100000);
+    wire SRAI  = (opcode == 7'b0010011) && (funct3 == 3'b101) && (funct7 == 7'b0100000);
+    wire XOR   = (opcode == 7'b0110011) && (funct3 == 3'b100) && (funct7 == 7'b0000000);
+    wire XORI  = (opcode == 7'b0010011) && (funct3 == 3'b100);
  
     // npc_op
     wire NPC_OP_BRA = BEQ | BNE;
@@ -35,34 +44,38 @@ module Controller (
     wire NPC_OP_PC4 = !NPC_OP_BRA & !NPC_OP_JMP;
     
     // rf_we
-    wire RF_OP_WE = ADDI | ORI | SLLI | LW | LUI | JAL | ADD;
+    wire RF_OP_WE = ADDI | ORI | SLLI | LW | LUI | JAL | ADD | SUB | AUIPC | SLL | SRL | SRLI | SRA | SRAI | XOR | XORI;
     
     // rf_wsel
-    wire WB_OP_ALU = ADDI | ORI | SLLI | ADD;
+    wire WB_OP_ALU = ADDI | ORI | SLLI | ADD | SUB | AUIPC | SLL | SRL | SRLI | SRA | SRAI | XOR | XORI;
     wire WB_OP_RAM = LW;
     wire WB_OP_PC4 = JAL;
     wire WB_OP_EXT = LUI;
     
     // sext_op
-    wire EXT_OP_I = ADDI | ORI | SLLI | LW;
+    wire EXT_OP_I = ADDI | ORI | SLLI | LW | SRLI | SRAI | XORI;
     wire EXT_OP_B = BEQ | BNE;
-    wire EXT_OP_U = LUI;
+    wire EXT_OP_U = LUI | AUIPC;
     wire EXT_OP_J = JAL;
     
     // alu_op
-    wire ALU_OP_ADD   = ADDI | LW | ADD;
+    wire ALU_OP_ADD   = ADDI | LW | ADD | AUIPC;
     wire ALU_OP_OR    = ORI;
-    wire ALU_OP_SLL   = SLLI;
+    wire ALU_OP_SLL   = SLLI | SLL;
     wire ALU_OP_EQ    = BEQ;
     wire ALU_OP_NE    = BNE;
+    wire ALU_OP_SUB   = SUB;
+    wire ALU_OP_SRL   = SRL | SRLI;
+    wire ALU_OP_SRA   = SRA | SRAI;
+    wire ALU_OP_XOR   = XOR | XORI;
     
     // alua_sel
-    wire ALU_A_SEL_RS1 = ADDI | ORI | SLLI | LW | BEQ | BNE | JAL | ADD;
-    wire ALU_A_SEL_PC  = 1'b0;
+    wire ALU_A_SEL_RS1 = ADDI | ORI | SLLI | LW | BEQ | BNE | JAL | ADD | SUB | SLL | SRL | SRLI | SRA | SRAI | XOR | XORI;
+    wire ALU_A_SEL_PC  = AUIPC;
                         
     // alub_sel
-    wire ALU_B_SEL_RS2 = BEQ | BNE | ADD;
-    wire ALU_B_SEL_EXT = ADDI | ORI | SLLI | LW | JAL;
+    wire ALU_B_SEL_RS2 = BEQ | BNE | ADD | SUB | SLL | SRL | SRA | XOR;
+    wire ALU_B_SEL_EXT = ADDI | ORI | SLLI | LW | JAL | AUIPC | SRLI | SRAI | XORI;
         
     // ram_r_op
     wire RAM_EXT_B  = 1'b0;
@@ -96,7 +109,11 @@ module Controller (
                   | {5{ALU_OP_OR   }} & `ALU_OR
                   | {5{ALU_OP_SLL  }} & `ALU_SLL
                   | {5{ALU_OP_EQ   }} & `ALU_EQ
-                  | {5{ALU_OP_NE   }} & `ALU_NE;
+                  | {5{ALU_OP_NE   }} & `ALU_NE
+                  | {5{ALU_OP_SRL  }} & `ALU_SRL
+                  | {5{ALU_OP_SRA  }} & `ALU_SRA
+                  | {5{ALU_OP_XOR  }} & `ALU_XOR
+                  | {5{ALU_OP_SUB   }} & `ALU_SUB;
 
     assign alua_sel = ALU_A_SEL_PC & `ALU_A_PC | ALU_A_SEL_RS1 & `ALU_A_RS1;
 
