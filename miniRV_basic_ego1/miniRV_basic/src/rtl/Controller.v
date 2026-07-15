@@ -28,6 +28,7 @@ module Controller (
     wire LUI   = (opcode == 7'b0110111);
     wire JAL   = (opcode == 7'b1101111);
     wire ADD   = (opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0000000);
+    wire SUB   = (opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0100000);
  
     // npc_op
     wire NPC_OP_BRA = BEQ | BNE;
@@ -35,10 +36,10 @@ module Controller (
     wire NPC_OP_PC4 = !NPC_OP_BRA & !NPC_OP_JMP;
     
     // rf_we
-    wire RF_OP_WE = ADDI | ORI | SLLI | LW | LUI | JAL | ADD;
+    wire RF_OP_WE = ADDI | ORI | SLLI | LW | LUI | JAL | ADD | SUB;
     
     // rf_wsel
-    wire WB_OP_ALU = ADDI | ORI | SLLI | ADD;
+    wire WB_OP_ALU = ADDI | ORI | SLLI | ADD | SUB;
     wire WB_OP_RAM = LW;
     wire WB_OP_PC4 = JAL;
     wire WB_OP_EXT = LUI;
@@ -55,13 +56,14 @@ module Controller (
     wire ALU_OP_SLL   = SLLI;
     wire ALU_OP_EQ    = BEQ;
     wire ALU_OP_NE    = BNE;
+    wire ALU_OP_SUB   = SUB;
     
     // alua_sel
-    wire ALU_A_SEL_RS1 = ADDI | ORI | SLLI | LW | BEQ | BNE | JAL | ADD;
+    wire ALU_A_SEL_RS1 = ADDI | ORI | SLLI | LW | BEQ | BNE | JAL | ADD | SUB;
     wire ALU_A_SEL_PC  = 1'b0;
                         
     // alub_sel
-    wire ALU_B_SEL_RS2 = BEQ | BNE | ADD;
+    wire ALU_B_SEL_RS2 = BEQ | BNE | ADD | SUB;
     wire ALU_B_SEL_EXT = ADDI | ORI | SLLI | LW | JAL;
         
     // ram_r_op
@@ -96,7 +98,8 @@ module Controller (
                   | {5{ALU_OP_OR   }} & `ALU_OR
                   | {5{ALU_OP_SLL  }} & `ALU_SLL
                   | {5{ALU_OP_EQ   }} & `ALU_EQ
-                  | {5{ALU_OP_NE   }} & `ALU_NE;
+                  | {5{ALU_OP_NE   }} & `ALU_NE
+                  | {5{ALU_OP_SUB   }} & `ALU_SUB;
 
     assign alua_sel = ALU_A_SEL_PC & `ALU_A_PC | ALU_A_SEL_RS1 & `ALU_A_RS1;
 

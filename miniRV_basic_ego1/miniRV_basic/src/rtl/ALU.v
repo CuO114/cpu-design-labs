@@ -28,6 +28,7 @@ module ALU (
             `ALU_ADD  : c = a + b;
             `ALU_OR   : c = a | b;
             `ALU_SLL  : c = a << b[4:0];
+            `ALU_SUB  : c = a - b;
             default   : c = 32'h0;
         endcase
     end
