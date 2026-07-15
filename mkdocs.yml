@@ -119,10 +119,9 @@ nav:
   - Trace测试说明:
     - 测试框架说明: trace/trace.md
     - 附录:
-      - A. 远程平台使用指南: trace/remote_env.md
-      - B. 虚拟机使用指南: trace/vm.md
-      - C. 实验环境部署指南: trace/env_diy.md
-      - D. Surfer使用指南: trace/surfer.md
+      - A. 虚拟机使用指南: trace/vm.md
+      - B. 实验环境部署指南: trace/env_diy.md
+      - C. Surfer使用指南: trace/surfer.md
   - SoC的下板调试:
     - 方法1：Trace下板调试: verify/trace-debug.md
     - 方法2：FPGA在线调试: verify/online-debug.md
