@@ -27,6 +27,7 @@ module ALU (
         case (op_r != 4'h0 ? op_r : op)
             `ALU_ADD  : c = a + b;
             `ALU_OR   : c = a | b;
+            `ALU_XOR  : c = a ^ b;
             `ALU_SLL  : c = a << b[4:0];
             `ALU_SRL  : c = a >> b[4:0];
             `ALU_SRA  : c = $signed(a) >>> b[4:0];
