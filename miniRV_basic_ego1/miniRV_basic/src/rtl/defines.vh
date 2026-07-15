@@ -9,6 +9,8 @@
 `define ALU_SUB     5'h01
 `define ALU_OR      5'h03
 `define ALU_SLL     5'h05
+`define ALU_SRL     5'h06
+`define ALU_SRA     5'h07
 `define ALU_EQ      5'h08
 `define ALU_NE      5'h09
     
