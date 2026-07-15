@@ -1,5 +1,14 @@
 # CPU Design Labs
 
+## 进度展示
+
+lab1：
+- 数据通路表&控制信号表 ✅
+- 数据通路图 ❌
+- A组指令 ✅
+- B组指令 ❌
+- 译码单元图 ❌
+
 本仓库用于 CPU 设计课程实验的组内协作。
 
 - GitHub 团队仓库 `origin`：<https://github.com/CuO114/cpu-design-labs>
