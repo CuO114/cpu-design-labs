@@ -8,20 +8,11 @@
 
 &emsp;&emsp;WSL2虚拟机最方便的地方之一就是可以快速实现系统之间的文件拷贝。
 
-**（2）远程实验平台**
+**（2）自行部署实验环境**
 
-&emsp;&emsp;远程实验平台的资源和性能有限，不要在上课期间使用，否则服务器负载能力有限，会导致使用体验很差。
+&emsp;&emsp;如果要自行安装环境，推荐安装WSL2虚拟机。安装说明见<a href="../vm/" target="_blank">附录A：虚拟机使用指南</a>。
 
-&emsp;&emsp;远程实验平台已经将Trace测试的运行环境部署在实验中心的服务器上，我们把所有依赖的配置都已经事先搭建完毕。无论你的电脑性能如何，无论你是在宿舍、实验室还是自习室，只要你还能连上校园网，你就能完成你的实验。具体使用方式详见<a href="../remote_env/" target="_blank">附录A：远程实验环境使用指南</a>。
-
-!!! info "温馨提示"
-    &emsp;&emsp;虽然我们已经做了一些方案保证远程环境的可靠性，但在某些特殊情况下，也不能确保不出故障，为安全起见，建议同学们将代码及时上传到git仓库或者下载到本地保存。
-
-**（3）自行部署实验环境**
-
-&emsp;&emsp;如果要自行安装环境，推荐安装WSL2虚拟机。安装说明见<a href="../vm/" target="_blank">附录B：虚拟机使用指南</a>。
-
-&emsp;&emsp;感兴趣的同学也可以尝试在自己的电脑上从零开始安装实验环境，体验一下自己动手的乐趣：）具体搭建方法详见<a href="../env_diy/" target="_blank">附录C：实验环境部署指南</a>。
+&emsp;&emsp;感兴趣的同学也可以尝试在自己的电脑上从零开始安装实验环境，体验一下自己动手的乐趣：）具体搭建方法详见<a href="../env_diy/" target="_blank">附录B：实验环境部署指南</a>。
 
 
 
@@ -259,7 +250,7 @@ make run TEST=sltu
 
 <center><img src = "../assets/trace-7.png" width = 350></center>
 
-&emsp;&emsp;更多Surfer工具的使用方法，请查看<a href="../surfer" target=_blank>附录D. Surfer使用指南</a>。
+&emsp;&emsp;更多Surfer工具的使用方法，请查看<a href="../surfer" target=_blank>附录C. Surfer使用指南</a>。
 
 ### 4.3 查看反汇编
 
