@@ -1,0 +1,10 @@
+0.7
+2020.2
+May 22 2025
+00:13:55
+D:/CpuDesign/.tmp/rtl-merge-test/rtl_merge_tb.v,1784164241,verilog,,,D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/defines.vh,rtl_merge_tb,,,D:\CpuDesign\miniRV_basic_ego1\miniRV_basic\src\rtl,,,,,
+D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/ALU.v,1784163982,verilog,,D:/CpuDesign/.tmp/rtl-merge-test/rtl_merge_tb.v,D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/defines.vh,ALU,,,D:\CpuDesign\miniRV_basic_ego1\miniRV_basic\src\rtl,,,,,
+D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/Controller.v,1784163872,verilog,,D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/multiplier.v,D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/defines.vh,Controller,,,D:\CpuDesign\miniRV_basic_ego1\miniRV_basic\src\rtl,,,,,
+D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/defines.vh,1784163871,verilog,,,,,,,,,,,,
+D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/divider.v,1784163981,verilog,,D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/ALU.v,,divider,,,D:\CpuDesign\miniRV_basic_ego1\miniRV_basic\src\rtl,,,,,
+D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/multiplier.v,1784164545,verilog,,D:/CpuDesign/miniRV_basic_ego1/miniRV_basic/src/rtl/divider.v,,multiplier,,,D:\CpuDesign\miniRV_basic_ego1\miniRV_basic\src\rtl,,,,,
