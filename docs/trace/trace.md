@@ -34,7 +34,7 @@ cd ~ && git clone https://gitee.com/hitsz-cslab/cdp-tests.git
 &emsp;&emsp;或：
 
 ``` bash linenums="1"
-cd ~ && git clone https://git.cs-lab.top/cslab/cdp-tests
+cd ~ && git clone https://git.cs-lab.top/cslab/cdp-tests.git
 ```
 
 !!! info "关于miniLA :loudspeaker:"
@@ -47,7 +47,7 @@ cd ~ && git clone https://git.cs-lab.top/cslab/cdp-tests
     &emsp;&emsp;或：
 
     ``` bash linenums="1"
-    cd ~ && git clone -b miniLA https://git.cs-lab.top/cslab/cdp-tests
+    cd ~ && git clone -b miniLA https://git.cs-lab.top/cslab/cdp-tests.git
     ```
 
 &emsp;&emsp;cdp-tests目录的文件结构如下图所示。
