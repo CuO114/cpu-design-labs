@@ -25,10 +25,16 @@
 !!! info "如果是在T2612上课的同学"
     &emsp;&emsp;在桌面上找到Debian虚拟机的快捷方式，双击即可启动虚拟机。
 
-&emsp;&emsp;在虚拟机终端输入并执行下列命令，以拉取测试框架代码：
+&emsp;&emsp;在虚拟机终端输入并执行下面其中一条命令，以拉取测试框架代码：
 
 ``` bash linenums="1"
 cd ~ && git clone https://gitee.com/hitsz-cslab/cdp-tests.git
+```
+
+&emsp;&emsp;或：
+
+``` bash linenums="1"
+cd ~ && git clone https://git.cs-lab.top/cslab/cdp-tests
 ```
 
 !!! info "关于miniLA :loudspeaker:"
@@ -36,6 +42,12 @@ cd ~ && git clone https://gitee.com/hitsz-cslab/cdp-tests.git
 
     ``` bash linenums="1"
     cd ~ && git clone -b miniLA https://gitee.com/hitsz-cslab/cdp-tests.git
+    ```
+
+    &emsp;&emsp;或：
+
+    ``` bash linenums="1"
+    cd ~ && git clone -b miniLA https://git.cs-lab.top/cslab/cdp-tests
     ```
 
 &emsp;&emsp;cdp-tests目录的文件结构如下图所示。
