@@ -45,3 +45,5 @@
     #define MHZ 50     // CPU Clock Frequency
     #define CLOCKS_PER_SEC (1000000 * MHZ)
     ```
+
+    &emsp;&emsp;此外，提升频率后，还需相应地调整UART IP核的输入时钟频率，详见<a href="../../lab2-B/6-ioitf_impl/#3-uartio" target=_blank>UART的I/O接口实现</a>。

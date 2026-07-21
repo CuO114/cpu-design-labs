@@ -23,7 +23,7 @@
 &emsp;&emsp;首先在桌面上打开wsl2distromanager，并启动comp2008虚拟机。
 
 !!! info "如果是在T2612上课的同学"
-    &emsp;&emsp;在桌面上找到Debian虚拟机的快捷方式，双击即可启动虚拟机。
+    &emsp;&emsp;在桌面上找到Ubuntu虚拟机的快捷方式，双击即可启动虚拟机。注意，Ubuntu虚拟机的root密码是`hit612`。
 
 &emsp;&emsp;在虚拟机终端输入并执行以下 ^^其中一条^^ 命令，以拉取测试框架代码：
 
@@ -100,6 +100,9 @@ cd ~ && git clone https://git.cs-lab.top/cslab/cdp-tests.git
 - 把Vivado工程目录的 `src` / `rtl` 下的所有源文件拷贝到 `cdp-tests` / `mySoC` 目录。**不要拷贝`ip`文件夹**，也 **不要拷贝IP核相关文件**。
 
 - 如果使用WSL2虚拟机，在Windows下拷贝源文件到虚拟机并刷新界面，有时会出现许多带有“`Zone.Identifier`”后缀的文件。这些文件需要全部删除，否则测试无法运行。删除方法是在文件资源管理器的搜索框搜索“`Zone.Identifier`”，然后快捷键 ++ctrl+a++ 全选后删除。
+
+!!! warning "在T2612上课的同学请注意"
+    &emsp;&emsp;**每次** 在Windows下拷贝源文件到虚拟机后，都需要关闭虚拟机命令行窗口并重新打开，然后执行`cd cdp-tests`命令进入Trace测试框架目录，再 **执行`sudo chmod -R 777 mySoC`命令更改文件权限**，否则执行`make`编译时会提示文件找不到。建议把源文件拷贝到`mySoC`目录后，直接在Trace框架中完成调试，避免频繁拷贝文件造成麻烦。
 
 - **保证`mySoC`目录下的架构是`miniRV_SoC`（或`miniLA_SoC`）包含`cpu_top`，然后`cpu_top`包含`cpu_core`，且这些模块的模块名、实例名，以及`cpu_core`的接口信号均不要改动**。课程提供的模板工程默认满足要求，不要改动。
 
