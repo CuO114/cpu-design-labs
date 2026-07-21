@@ -1,4 +1,5 @@
 site/
+<<<<<<< HEAD
 docs/lab2-A/
 docs/lab2-B/
 
@@ -43,3 +44,5 @@ docs/lab2-B/
 Thumbs.db
 *.swp
 *~
+=======
+>>>>>>> upstream/main
