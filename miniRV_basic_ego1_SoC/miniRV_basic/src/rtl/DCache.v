@@ -39,6 +39,7 @@ module DCache(
     localparam R_STAT1 = 2'b11;
     reg [1:0] r_state, r_nstat;
     reg [3:0] ren_r;
+    reg [31:0] read_addr_r; // 保存CPU原始读地址，避免块对齐后丢失字偏移
 
     localparam W_IDLE  = 2'b00;
     localparam W_STAT0 = 2'b01;
@@ -48,9 +49,9 @@ module DCache(
     reg [3:0] wen_r;
     wire      wr_resp = dev_wrdy & (cpu_wen == 4'h0) ? 1'b1 : 1'b0;
 
-    // 严谨的地址锁存：如果在等待主存，使用存下来的历史地址，防止CPU突变地址
+    // Cache查找和回填始终使用CPU原始地址；cpu_raddr仅作为发往总线的地址。
     wire [31:0] current_addr   = (w_state != W_IDLE) ? cpu_waddr : 
-                                 ((r_state != R_IDLE) ? cpu_raddr : data_addr);
+                                 ((r_state != R_IDLE) ? read_addr_r : data_addr);
     wire        uncached      = (current_addr[31:16] == 16'hFFFF);
 
     wire [ 4:0] tag_from_cpu   = current_addr[14:10]; // 32KB主存地址的TAG字段
@@ -111,15 +112,17 @@ module DCache(
     // TODO: 生成DCache读状态机的输出信号
     always @(posedge cpu_clk or posedge cpu_rst) begin
         if (cpu_rst) begin
-            cpu_ren   <= 4'h0;
-            cpu_raddr <= 32'h0;
-            ren_r     <= 4'h0;
+            cpu_ren     <= 4'h0;
+            cpu_raddr   <= 32'h0;
+            ren_r       <= 4'h0;
+            read_addr_r <= 32'h0;
         end else begin
             case (r_state)
                 R_IDLE: begin
                     if (|data_ren) begin
-                        cpu_raddr <= data_addr;
-                        ren_r     <= data_ren;
+                        cpu_raddr   <= data_addr;
+                        read_addr_r <= data_addr;
+                        ren_r       <= data_ren;
                     end
                     cpu_ren <= 4'h0;
                 end
